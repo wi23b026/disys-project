@@ -6,7 +6,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="357.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:controller="at.fhtechnikum.communitygui.GuiController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="357.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button layoutX="22.0" layoutY="81.0" mnemonicParsing="false" text="Refresh" />
       <Label layoutX="22.0" layoutY="19.0" text="Community Pool" />
@@ -18,7 +18,7 @@
       <DatePicker fx:id="startDatePicker" layoutX="127.0" layoutY="150.0" />
       <Label layoutX="22.0" layoutY="187.0" text="End Date" />
       <DatePicker fx:id="endDatePicker" layoutX="127.0" layoutY="183.0" />
-      <Button layoutX="22.0" layoutY="217.0" mnemonicParsing="false" text="Show data" />
+      <Button layoutX="22.0" layoutY="217.0" mnemonicParsing="false" text="Show data" onAction="#onShowDataClick"/>
       <Separator layoutX="7.0" layoutY="264.0" prefHeight="1.0" prefWidth="343.0" />
       <Label layoutX="22.0" layoutY="285.0" text="Community produced" />
       <Label layoutX="22.0" layoutY="316.0" text="Community used" />

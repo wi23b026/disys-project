@@ -10,13 +10,15 @@ public class EnergyData {
     private float communityUsed;
     private float gridUsed;
 
-    public EnergyData(float currentEnergy, float gridPortion, float communityProduced, float communityUsed, float gridUsed) {
+    public EnergyData(LocalDateTime date, float currentEnergy, float gridPortion, float communityProduced, float communityUsed, float gridUsed) {
+        this.date = date;
         this.currentEnergy = currentEnergy;
         this.gridPortion = gridPortion;
         this.communityProduced = communityProduced;
         this.communityUsed = communityUsed;
         this.gridUsed = gridUsed;
     }
+
 
     public float getCurrentEnergy() {
         return currentEnergy;

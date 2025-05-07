@@ -6,25 +6,28 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/energy")
 public class EnergyDataController {
+
     private final EnergyDataRepository energyDataRepository;
 
     @Autowired
-    public EnergyDataController(EnergyDataRepository EnergyDataRepository) {
-        this.energyDataRepository = EnergyDataRepository;
+    public EnergyDataController(EnergyDataRepository energyDataRepository) {
+        this.energyDataRepository = energyDataRepository;
     }
 
-    @GetMapping("/energy")
+    @GetMapping
     public ArrayList<EnergyData> getAllEnergyData() {
-        return new ArrayList<EnergyData>(this.energyDataRepository.getAllEnergyData());
+        return new ArrayList<>(this.energyDataRepository.getAllEnergyData());
     }
 
-    @GetMapping("/energy/current")
+    @GetMapping("/current")
     public EnergyData getCurrentEnergy() {
         LocalDateTime now = LocalDateTime.now().withMinute(0).withSecond(0).withNano(0);
-        EnergyData currentData = energyDataRepository.getDate(now);
+        EnergyData currentData = energyDataRepository.getByDate(now);
 
         if (currentData == null) {
             throw new RuntimeException("No current data available.");
@@ -33,7 +36,7 @@ public class EnergyDataController {
         return currentData;
     }
 
-    @GetMapping("/energy/historical")
+    @GetMapping("/historical")
     public ArrayList<EnergyData> getHistoricalEnergyData(
             @RequestParam("start") String start,
             @RequestParam("end") String end) {
@@ -43,9 +46,11 @@ public class EnergyDataController {
 
         List<EnergyData> allData = energyDataRepository.getAllEnergyData();
 
-        ArrayList<EnergyData> filteredData = (ArrayList<EnergyData>) allData.stream()
-                .filter(data -> !data.getDate().isBefore(startDate) && !data.getDate().isAfter(endDate))
-                .toList();
+        ArrayList<EnergyData> filteredData = allData.stream()
+                .filter(data -> data.getDate() != null
+                        && !data.getDate().isBefore(startDate)
+                        && !data.getDate().isAfter(endDate))
+                .collect(Collectors.toCollection(ArrayList::new));
 
         if (filteredData.isEmpty()) {
             throw new RuntimeException("No data for the specified period.");
@@ -54,3 +59,4 @@ public class EnergyDataController {
         return filteredData;
     }
 }
+

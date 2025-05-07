@@ -24,4 +24,11 @@ public class EnergyData {
     public float getGridUsed() {
         return gridUsed;
     }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+    public float getCurrentEnergy() {
+        return currentEnergy;
+    }
 }
