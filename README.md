@@ -6,9 +6,9 @@
 - ```community-gui```: Start ```GuiApplication.java```
 
 # How to use the application
-- "Refresh"-button: Returns usage data of current time
-- "Show Data"-button: Returns usage data of selected time span
-- Start Date should be greater or equal the current date; End Date should be greater or equal to Start Date
+- ```Refresh```-button: Returns usage data of current time
+- ```Show Data```-button: Returns usage data of selected time span
+- ```Start Date``` should be greater or equal the current date; ```End Date``` should be greater or equal to Start Date
 
 # Disclaimer
 - Data is currently hardcoded
