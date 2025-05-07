@@ -38,12 +38,15 @@ public class GuiController {
     private DatePicker endDatePicker;
 
     @FXML
+    private Label message;
+
+    @FXML
     protected void onShowDataClick() {
         LocalDate start = startDatePicker.getValue();
         LocalDate end = endDatePicker.getValue();
 
         if (start == null || end == null) {
-            comPool.setText("Start oder Ende fehlt!");
+            message.setText("Start oder Ende fehlt!");
             return;
         }
 
@@ -66,7 +69,7 @@ public class GuiController {
             System.out.println("Response Body: " + response.body());
 
             if (response.statusCode() != 200) {
-                comPool.setText("Fehler: " + response.statusCode());
+                message.setText("Fehler: " + response.statusCode());
                 return;
             }
 
@@ -76,7 +79,7 @@ public class GuiController {
             EnergyData[] dataArray = objectMapper.readValue(response.body(), EnergyData[].class);
 
             if (dataArray.length == 0) {
-                comPool.setText("Keine Daten im Zeitraum gefunden.");
+                message.setText("Keine Daten im Zeitraum gefunden.");
                 comProduced.setText("");
                 comUsed.setText("");
                 gridUsed.setText("");
@@ -86,15 +89,66 @@ public class GuiController {
             // Nur das erste Ergebnis anzeigen (zum Testen)
             EnergyData data = dataArray[0];
 
-            comPool.setText("GridPortion: " + data.getGridPortion());
+            gridPortion.setText(data.getGridPortion() + "%");
+            comProduced.setText(data.getCommunityProduced() + " kWh");
+            comUsed.setText(data.getCommunityUsed() + " kWh");
+            gridUsed.setText(data.getGridUsed() + " kWh");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            message.setText("Fehler beim Abrufen!");
+        }
+    }
+
+    @FXML
+    protected void onRefreshClick() {
+
+        String urlString = "http://localhost:8080/energy/current";
+
+        var request = HttpRequest
+                .newBuilder(URI.create(urlString))
+                .GET()
+                .build();
+
+        try {
+            var response = HttpClient
+                    .newHttpClient()
+                    .send(request, HttpResponse.BodyHandlers.ofString());
+
+            System.out.println("Sende Request an URL: " + urlString);
+            System.out.println("HTTP Status Code: " + response.statusCode());
+            System.out.println("Response Body: " + response.body());
+
+            if (response.statusCode() != 200) {
+                comPool.setText("Keine aktuellen Daten (" + response.statusCode() + ")");
+                comProduced.setText("");
+                comUsed.setText("");
+                gridUsed.setText("");
+                return;
+            }
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.findAndRegisterModules();
+
+            EnergyData data = objectMapper.readValue(response.body(), EnergyData.class);
+
+            // Community Pool berechnen
+            float pool = data.getCommunityProduced() - data.getCommunityUsed();
+            String poolText = pool >= 0 ? (pool + " kWh available") : (Math.abs(pool) + " kWh missing");
+
+            comPool.setText(poolText);
             comProduced.setText("Produced: " + data.getCommunityProduced());
             comUsed.setText("Used: " + data.getCommunityUsed());
             gridUsed.setText("Grid Used: " + data.getGridUsed());
 
         } catch (Exception e) {
             e.printStackTrace();
-            comPool.setText("Fehler beim Abrufen!");
+            comPool.setText("Error fetching data");
+            comProduced.setText("");
+            comUsed.setText("");
+            gridUsed.setText("");
         }
     }
+
 
 }
