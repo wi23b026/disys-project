@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>at.fhtechnikum</groupId>
-    <artifactId>echo-service</artifactId>
+    <artifactId>energy-msg</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>echo-service</name>
-    <description>echo-service</description>
+    <name>echo-msg</name>
+    <description>echo-msg</description>
     <url/>
     <licenses>
         <license/>
@@ -51,15 +51,10 @@
             <artifactId>spring-rabbit-test</artifactId>
             <scope>test</scope>
         </dependency>
+
         <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jsr310</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>at.fhtechnikum</groupId>
-            <artifactId>energy-msg</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
         </dependency>
     </dependencies>
 

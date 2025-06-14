@@ -7,7 +7,15 @@
         <option value="$PROJECT_DIR$/echo-service/pom.xml" />
         <option value="$PROJECT_DIR$/energy-user/pom.xml" />
         <option value="$PROJECT_DIR$/energy-producer/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/shared-models/pom.xml" />
+        <option value="$PROJECT_DIR$/echo-msg/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/shared-models/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_24" default="true" project-jdk-name="openjdk-24" project-jdk-type="JavaSDK">
