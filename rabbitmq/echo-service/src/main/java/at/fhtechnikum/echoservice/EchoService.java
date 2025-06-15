@@ -26,7 +26,6 @@ public class EchoService {
                             Channel channel,
                             @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-
         String jsonString = new String(messageBytes);
         EchoMessage message = objectMapper.readValue(jsonString, EchoMessage.class);
 
