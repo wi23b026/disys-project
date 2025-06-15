@@ -18,11 +18,13 @@ public class EnergyProducer {
 
     @Scheduled(fixedRate = 5000) // alle 5 Sekunden
     public void sendEnergyProduction() throws JsonProcessingException {
-        EchoMessage msg = new EchoMessage("PRODUCER", "COMMUNITY", getRandomKwh(), LocalDateTime.now());
-        ObjectMapper mapper = new ObjectMapper();
-
-        String json = mapper.writeValueAsString(msg);
-        rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, "input", json);
+        try {
+            EchoMessage message = new EchoMessage("PRODUCER", "COMMUNITY", getRandomKwh(), LocalDateTime.now());
+            System.out.println("Sending message: " + message);
+            rabbitTemplate.convertAndSend("echo.processing.exchange", "echo.input", message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private double getRandomKwh() {
