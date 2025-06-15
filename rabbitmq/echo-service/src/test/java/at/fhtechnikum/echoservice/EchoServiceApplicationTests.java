@@ -1,13 +1,14 @@
 package at.fhtechnikum.echoservice;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+//import org.testng.annotations.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class EchoServiceApplicationTests {
+public class EchoServiceApplicationTests {
 
     @Test
-    void contextLoads() {
+    public void contextLoads() {
     }
 
 }

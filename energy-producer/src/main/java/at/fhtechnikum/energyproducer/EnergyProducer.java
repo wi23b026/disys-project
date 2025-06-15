@@ -1,7 +1,7 @@
 package at.fhtechnikum.energyproducer;
 
 import at.fhtechnikum.echomsg.EchoMessage;
-// import at.fhtechnikum.echoservice.RabbitMQConfig;
+import at.fhtechnikum.echoservice.RabbitMQConfig;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
