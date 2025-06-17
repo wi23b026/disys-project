@@ -134,7 +134,7 @@ public class GuiController {
 
             // Community Pool berechnen
             float pool = data.getCommunityProduced() - data.getCommunityUsed();
-            String poolText = pool >= 0 ? (pool + " kWh available") : (Math.abs(pool) + " kWh missing");
+            String poolText = pool >= 0 ? (pool + " % available") : (Math.abs(pool) + " % missing");
 
             comPool.setText(poolText);
             comProduced.setText("Produced: " + data.getCommunityProduced());

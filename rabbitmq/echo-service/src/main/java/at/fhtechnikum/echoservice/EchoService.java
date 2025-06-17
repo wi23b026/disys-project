@@ -22,12 +22,12 @@ public class EchoService {
     private RabbitTemplate rabbitTemplate;
 
     @RabbitListener(queues = "echo.input", ackMode = "MANUAL")
-    public void processText(@Payload byte[] messageBytes,
+    public void processText(@Payload EchoMessage message,
                             Channel channel,
                             @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        String jsonString = new String(messageBytes);
-        EchoMessage message = objectMapper.readValue(jsonString, EchoMessage.class);
+     //   String jsonString = new String(messageBytes);
+     //   EchoMessage message = objectMapper.readValue(jsonString, EchoMessage.class);
 
         System.out.println("=== USAGE SERVICE ===");
         System.out.println("Received: " + message);

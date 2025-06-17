@@ -1,6 +1,7 @@
 package at.fhtechnikum.energyproducer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -16,6 +17,7 @@ public class RabbitMQConfig {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         Jackson2JsonMessageConverter converter = new Jackson2JsonMessageConverter(mapper);
 
         RabbitTemplate template = new RabbitTemplate(connectionFactory);
