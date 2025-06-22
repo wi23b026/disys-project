@@ -1,8 +1,10 @@
 package at.fhtechnikum.currentpercentageservice;
 
+import at.fhtechnikum.echomsg.EchoMessage;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -10,12 +12,18 @@ import java.util.Optional;
 
 @Service
 public class CurrentPercentageService {
-    @Autowired
+    /*@Autowired
     UsageRepository UsageRepository;
 
     @Autowired
-    CurrentPercentageRepository CurrentPercentageRepository;
+    CurrentPercentageRepository CurrentPercentageRepository;*/
 
+    @RabbitListener(queues = "echo.update.queue")
+    public void handleUpdateNotice(@Payload EchoMessage message) {
+        System.out.println("Update received: " + message);
+    }
+
+    /*
     @RabbitListener(queues = "echo.output")
     public void handleEnergyUpdate(String message) {
         LocalDateTime currentHour = LocalDateTime.now().withMinute(0).withSecond(0);
@@ -37,5 +45,5 @@ public class CurrentPercentageService {
 
             CurrentPercentageRepository.save(current);
         }
-    }
+    }*/
 }

@@ -1,6 +1,7 @@
 package at.fhtechnikum.echoservice;
 
 import at.fhtechnikum.echomsg.EchoMessage;
+import at.fhtechnikum.echomsg.EchoMessageRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.Channel;
@@ -19,25 +20,28 @@ import java.nio.charset.StandardCharsets;
 public class EchoService {
     private final RabbitTemplate rabbitTemplate;
 
+    private final EchoMessageRepository repository;
+
     @Autowired
-    public EchoService(RabbitTemplate rabbitTemplate) {
+    public EchoService(RabbitTemplate rabbitTemplate, EchoMessageRepository repository) {
         this.rabbitTemplate = rabbitTemplate;
+        this.repository = repository;
     }
 
     @RabbitListener(queues = RabbitMQConfig.INPUT_QUEUE)
     public void handleUsage(@Payload EchoMessage message) {
-        // 1) LOG the incoming USER/PRODUCER message
-        System.out.println("Received usage msg → " + message);
+        System.out.println("Received message:" + message + " -  Type: " + message.getType());
 
-        // 2) (later) update your hourly-aggregation DB here...
-
-        // 3) PUBLISH an “update available” notice
+        saveMessage(message);
         rabbitTemplate.convertAndSend(
                 RabbitMQConfig.EXCHANGE_NAME,
                 RabbitMQConfig.UPDATE_ROUTING_KEY,
                 message
         );
+    }
 
-        // no manual ack necessary here; AUTO mode will ACK for you
+    public EchoMessage saveMessage(EchoMessage message) {
+        System.out.println("Saving message: " + message);
+        return repository.save(message);
     }
 }

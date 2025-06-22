@@ -24,7 +24,6 @@
         <module>community-rest-api</module>
         <module>community-gui</module>
         <module>current-percentage-service</module>
-
     </modules>
 
     <properties>

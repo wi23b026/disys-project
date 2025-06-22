@@ -12,12 +12,14 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="echo-common" target="17" />
       <module name="energy-producer" target="17" />
       <module name="shared-models" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="echo-common" options="-parameters" />
       <module name="echo-msg" options="-parameters" />
       <module name="echo-service" options="-parameters" />
       <module name="energy-producer" options="-parameters" />

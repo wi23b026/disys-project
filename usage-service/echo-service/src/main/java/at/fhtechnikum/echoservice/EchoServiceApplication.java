@@ -4,7 +4,7 @@ import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"at.fhtechnikum.echoservice", "at.fhtechnikum.echomsg"})
 @EnableRabbit
 public class EchoServiceApplication {
 

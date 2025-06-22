@@ -10,10 +10,12 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/shared-models/pom.xml" />
         <option value="$PROJECT_DIR$/echo-msg/pom.xml" />
+        <option value="$PROJECT_DIR$/echo-common/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/echo-common/pom.xml" />
         <option value="$PROJECT_DIR$/shared-models/pom.xml" />
       </set>
     </option>

@@ -2,14 +2,25 @@ package at.fhtechnikum.echomsg;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name="energy_message")
 public class EchoMessage {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String type;         // PRODUCER / USER
     private String association;  // COMMUNITY / GRID
     private double kwh;
     private LocalDateTime datetime;
+
+    // No-args-Konstruktor für JPA
+    protected EchoMessage() {
+    }
 
     @JsonCreator
     public EchoMessage(
