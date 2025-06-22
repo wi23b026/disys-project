@@ -20,9 +20,11 @@
         <module>rabbitmq/echo-msg</module>
         <module>rabbitmq/echo-service</module>
         <module>energy-producer</module>
+        <module>energy-user</module>
         <module>community-rest-api</module>
         <module>community-gui</module>
         <module>current-percentage-service</module>
+
     </modules>
 
     <properties>
