@@ -25,26 +25,19 @@ public class EchoService {
     }
 
     @RabbitListener(queues = RabbitMQConfig.INPUT_QUEUE)
-    public void handleUsage(
-            @Payload EchoMessage message,
-            Channel channel,
-            @Header(AmqpHeaders.DELIVERY_TAG) long tag
-    ) throws IOException {
-
+    public void handleUsage(@Payload EchoMessage message) {
         // 1) LOG the incoming USER/PRODUCER message
         System.out.println("Received usage msg → " + message);
 
         // 2) (later) update your hourly-aggregation DB here...
 
         // 3) PUBLISH an “update available” notice
-        //    we’ll just forward the same message for now:
         rabbitTemplate.convertAndSend(
                 RabbitMQConfig.EXCHANGE_NAME,
                 RabbitMQConfig.UPDATE_ROUTING_KEY,
                 message
         );
 
-        // 4) ACK so RabbitMQ can drop the original
-        channel.basicAck(tag, false);
+        // no manual ack necessary here; AUTO mode will ACK for you
     }
 }
