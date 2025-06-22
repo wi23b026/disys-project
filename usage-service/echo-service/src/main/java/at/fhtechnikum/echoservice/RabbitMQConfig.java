@@ -13,47 +13,65 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
-    public static final String INPUT_QUEUE = "echo.input";
-    public static final String OUTPUT_QUEUE = "echo.output";
     public static final String EXCHANGE_NAME = "echo.processing.exchange";
+    public static final String INPUT_QUEUE = "echo.input.queue";
+    public static final String OUTPUT_QUEUE = "echo.output.queue";
+    public static final String UPDATE_QUEUE = "echo.update.queue";
+    public static final String INPUT_ROUTING_KEY = "echo.input";
+    public static final String OUTPUT_ROUTING_KEY = "echo.output";
+    public static final String UPDATE_ROUTING_KEY = "echo.update";
 
+    // —the central exchange
     @Bean
-    public DirectExchange textProcessingExchange() {
+    public DirectExchange exchange() {
         return new DirectExchange(EXCHANGE_NAME);
     }
 
+    // —the queue where USER/PRODUCER messages arrive
     @Bean
     public Queue inputQueue() {
-        return QueueBuilder.durable(INPUT_QUEUE).build();
+        return new Queue(INPUT_QUEUE, true);
     }
 
+    // —the queue where we’ll publish “update” notices
     @Bean
-    public Queue outputQueue() {
-        return QueueBuilder.durable(OUTPUT_QUEUE).build();
+    public Queue updateQueue() {
+        return new Queue(UPDATE_QUEUE, true);
     }
 
+    // —bind inputQueue to exchange with INPUT_ROUTING_KEY
     @Bean
-    public Binding inputBinding() {
-        return BindingBuilder.bind(inputQueue()).to(textProcessingExchange()).with("echo.input");
+    public Binding bindInput() {
+        return BindingBuilder
+                .bind(inputQueue())
+                .to(exchange())
+                .with(INPUT_ROUTING_KEY);
     }
 
+    // —bind updateQueue to exchange with UPDATE_ROUTING_KEY
     @Bean
-    public Binding outputBinding() {
-        return BindingBuilder.bind(outputQueue()).to(textProcessingExchange()).with("echo.output");
+    public Binding bindUpdate() {
+        return BindingBuilder
+                .bind(updateQueue())
+                .to(exchange())
+                .with(UPDATE_ROUTING_KEY);
     }
 
-    @Bean
-    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
-        RabbitTemplate template = new RabbitTemplate(connectionFactory);
-        template.setMessageConverter(new Jackson2JsonMessageConverter());
-        return template;
-    }
-
+    // —JSON ⇄ POJO converter
     @Bean
     public Jackson2JsonMessageConverter messageConverter() {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        ObjectMapper mapper = new ObjectMapper()
+                .registerModule(new JavaTimeModule())
+                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         return new Jackson2JsonMessageConverter(mapper);
     }
+
+    // —attach converter to RabbitTemplate
+    @Bean
+    public RabbitTemplate rabbitTemplate(ConnectionFactory cf) {
+        RabbitTemplate tpl = new RabbitTemplate(cf);
+        tpl.setMessageConverter(messageConverter());
+        return tpl;
+    }
+
 }
