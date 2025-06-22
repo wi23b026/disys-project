@@ -17,8 +17,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>rabbitmq/echo-msg</module>
-        <module>rabbitmq/echo-service</module>
+        <module>usage-service/echo-msg</module>
+        <module>usage-service/echo-service</module>
         <module>energy-producer</module>
         <module>energy-user</module>
         <module>community-rest-api</module>
