@@ -1,4 +1,4 @@
-package at.fhtechnikum.currentpercentageservice;
+package at.fhtechnikum.echoservice;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

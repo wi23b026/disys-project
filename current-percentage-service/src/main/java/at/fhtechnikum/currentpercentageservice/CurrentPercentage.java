@@ -17,6 +17,14 @@ public class CurrentPercentage {
     @Column
     private double gridPortion;
 
+    public CurrentPercentage() {}
+
+    public CurrentPercentage(LocalDateTime hour, double communityDepleted, double gridPortion) {
+        this.hour = hour;
+        this.communityDepleted = communityDepleted;
+        this.gridPortion = gridPortion;
+    }
+
     public void setHour(LocalDateTime hour) {
         this.hour = hour;
     }
