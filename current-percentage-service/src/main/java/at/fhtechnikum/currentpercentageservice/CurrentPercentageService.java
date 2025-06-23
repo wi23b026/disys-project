@@ -12,38 +12,23 @@ import java.util.Optional;
 
 @Service
 public class CurrentPercentageService {
-    /*@Autowired
-    UsageRepository UsageRepository;
+    UsageRepository usageRepository;
+    CurrentPercentageRepository currentPercentageRepository;
 
     @Autowired
-    CurrentPercentageRepository CurrentPercentageRepository;*/
+    public CurrentPercentageService(UsageRepository usageRepository, CurrentPercentageRepository currentPercentageRepository) {
+        usageRepository = this.usageRepository;
+        currentPercentageRepository = this.currentPercentageRepository;
+    }
 
     @RabbitListener(queues = "echo.update.queue")
     public void handleUpdateNotice(@Payload EchoMessage message) {
         System.out.println("Update received: " + message);
+
+        calcCurrentPercentage();
     }
 
-    /*
-    @RabbitListener(queues = "echo.output")
-    public void handleEnergyUpdate(String message) {
-        LocalDateTime currentHour = LocalDateTime.now().withMinute(0).withSecond(0);
-        Optional<Usage> usage = UsageRepository.findByHour(currentHour);
+    public void calcCurrentPercentage() {
 
-        if (usage.isPresent()) {
-            double totalUsed = usage.get().getCommunityUsed() + usage.get().getGridUsed();
-            double gridPortion = (usage.get().getGridUsed() / totalUsed) * 100.0;
-
-            double communityDepletion = 100.0;
-            if (usage.get().getCommunityProduced() > usage.get().getCommunityUsed()) {
-                communityDepletion = (usage.get().getCommunityUsed() / usage.get().getCommunityProduced()) * 100.0;
-            }
-
-            CurrentPercentage current = new CurrentPercentage();
-            current.setHour(currentHour);
-            current.setGridPortion(Math.round(gridPortion * 100.0) / 100.0);
-            current.setCommunityDepleted(Math.round(communityDepletion * 100.0) / 100.0);
-
-            CurrentPercentageRepository.save(current);
-        }
-    }*/
+    }
 }
