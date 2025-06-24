@@ -4,10 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>at.fhtechnikum</groupId>
+  <parent>
+    <groupId>at.fhtechnikum</groupId>
+    <artifactId>disys-project</artifactId>
+    <version>1.0.0</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+
   <artifactId>community-gui</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <name>community-gui</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -18,7 +18,7 @@
 		</dependency>
 		<dependency>
 			<groupId>at.fhtechnikum</groupId>
-			<artifactId>usage-service/echo-service</artifactId>
+			<artifactId>echo-service</artifactId>
 			<version>1.0.0</version>
 			<scope>compile</scope>
 		</dependency>
@@ -51,6 +51,7 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jsr310</artifactId>
+			<version>${jackson.version}</version>
 		</dependency>
 	</dependencies>
 
