@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -21,13 +22,13 @@ public class EnergyDataController {
 
     @GetMapping
     public ArrayList<EnergyData> getAllEnergyData() {
-        return new ArrayList<>(this.energyDataRepository.getAllEnergyData());
+        return new ArrayList<>(this.energyDataRepository.findAll());
     }
 
     @GetMapping("/current")
-    public EnergyData getCurrentEnergy() {
+    public Optional<EnergyData> getCurrentEnergy() {
         LocalDateTime now = LocalDateTime.now().withMinute(0).withSecond(0).withNano(0);
-        EnergyData currentData = energyDataRepository.getByDate(now);
+        Optional<EnergyData> currentData = energyDataRepository.findByDate(now);
 
         if (currentData == null) {
             throw new RuntimeException("No current data available.");
@@ -44,19 +45,12 @@ public class EnergyDataController {
         LocalDateTime startDate = LocalDateTime.parse(start);
         LocalDateTime endDate = LocalDateTime.parse(end);
 
-        List<EnergyData> allData = energyDataRepository.getAllEnergyData();
+        ArrayList<EnergyData> data = energyDataRepository.findByDateBetween(startDate, endDate);
 
-        ArrayList<EnergyData> filteredData = allData.stream()
-                .filter(data -> data.getDate() != null
-                        && !data.getDate().isBefore(startDate)
-                        && !data.getDate().isAfter(endDate))
-                .collect(Collectors.toCollection(ArrayList::new));
-
-        if (filteredData.isEmpty()) {
+        if (data.isEmpty()) {
             throw new RuntimeException("No data for the specified period.");
         }
 
-        return filteredData;
+        return data;
     }
 }
-
