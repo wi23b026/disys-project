@@ -3,21 +3,25 @@ package at.fhtechnikum.communityrestapi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import at.fhtechnikum.
+import at.fhtechnikum.echoservice.UsageRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/energy")
 public class EnergyDataController {
 
     private final EnergyDataRepository energyDataRepository;
+    private final UsageRepository usageRepository;
+    private final CurrentPercentageRepository currentPercentageRepository;
 
     @Autowired
-    public EnergyDataController(EnergyDataRepository energyDataRepository) {
+    public EnergyDataController(EnergyDataRepository energyDataRepository, UsageRepository usageRepository, CurrentPercentageRepository currentPercentageRepository) {
         this.energyDataRepository = energyDataRepository;
+        this.usageRepository = usageRepository;
+        this.currentPercentageRepository = currentPercentageRepository;
     }
 
     @GetMapping
@@ -30,7 +34,7 @@ public class EnergyDataController {
         LocalDateTime now = LocalDateTime.now().withMinute(0).withSecond(0).withNano(0);
         Optional<EnergyData> currentData = energyDataRepository.findByDate(now);
 
-        if (currentData == null) {
+        if (currentData.isEmpty()) {
             throw new RuntimeException("No current data available.");
         }
 

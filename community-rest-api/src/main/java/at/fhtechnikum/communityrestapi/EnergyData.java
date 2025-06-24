@@ -1,12 +1,14 @@
 package at.fhtechnikum.communityrestapi;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "energy_data")
 public class EnergyData {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private LocalDateTime date;
 
     private float currentEnergy;
@@ -26,23 +28,23 @@ public class EnergyData {
         this.gridUsed = gridUsed;
     }
 
-    public LocalDateTime setDate(LocalDateTime date) {
-        return this.date = date;
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
-    public float setCurrentEnergy(float currentEnergy) {
-        return this.currentEnergy = currentEnergy;
+    public void setCurrentEnergy(float currentEnergy) {
+        this.currentEnergy = currentEnergy;
     }
-    public float setGridPortion(float gridPortion){
-        return this.gridPortion = gridPortion;
+    public void setGridPortion(float gridPortion){
+        this.gridPortion = gridPortion;
     }
-    public float setCommunityProduced(float communityProduced) {
-        return this.communityProduced = communityProduced;
+    public void setCommunityProduced(float communityProduced) {
+         this.communityProduced = communityProduced;
     }
-    public float setCommunityUsed(float communityUsed){
-        return this.communityUsed = communityUsed;
+    public void setCommunityUsed(float communityUsed){
+        this.communityUsed = communityUsed;
     }
-    public float setGridUsed(float gridUsed) {
-        return this.gridUsed = gridUsed;
+    public void setGridUsed(float gridUsed) {
+        this.gridUsed = gridUsed;
     }
 
     public LocalDateTime getDate() {
