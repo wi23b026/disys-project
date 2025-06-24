@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS echo_message (
+    id BIGSERIAL PRIMARY KEY,
+    type VARCHAR(20) NOT NULL,
+    association VARCHAR(20) NOT NULL,
+    kwh DOUBLE PRECISION NOT NULL,
+    datetime TIMESTAMP NOT NULL
+);
