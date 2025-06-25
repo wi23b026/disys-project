@@ -53,6 +53,7 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
+            <version>9.21.1</version>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -65,7 +66,7 @@
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
-                <version>8.0.0</version>
+                <version>9.21.1</version>
                 <configuration>
                     <configFiles>
                         <configFile>flyway.conf</configFile>
