@@ -4,6 +4,7 @@ import at.fhtechnikum.currentpercentageservice.CurrentPercentageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+
 import at.fhtechnikum.currentpercentageservice.CurrentPercentageService;
 import at.fhtechnikum.echoservice.UsageRepository;
 import java.time.LocalDateTime;
