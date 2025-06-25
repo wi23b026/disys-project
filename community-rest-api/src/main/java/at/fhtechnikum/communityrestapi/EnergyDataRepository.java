@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Repository
-public interface EnergyDataRepository extends JpaRepository<EnergyData, LocalDateTime>{
+public interface EnergyDataRepository extends JpaRepository<EnergyData, Long>{
     Optional<EnergyData> findByDate(LocalDateTime date);
     ArrayList<EnergyData> findByDateBetween(LocalDateTime start, LocalDateTime end);
 }

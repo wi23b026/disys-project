@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 public class EnergyData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private LocalDateTime date;
 
     private float currentEnergy;

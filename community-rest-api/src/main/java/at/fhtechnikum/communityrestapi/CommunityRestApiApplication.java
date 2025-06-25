@@ -2,14 +2,13 @@ package at.fhtechnikum.communityrestapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {
-        "at.fhtechnikum.communityrestapi",
-        "at.fhtechnikum.echoservice",
-        "at.fhtechnikum.currentpercentageservice"
-})
+@EnableJpaRepositories(basePackages = "at.fhtechnikum")
+@ComponentScan(basePackages = "at.fhtechnikum")
 public class CommunityRestApiApplication {
 
     public static void main(String[] args) {
