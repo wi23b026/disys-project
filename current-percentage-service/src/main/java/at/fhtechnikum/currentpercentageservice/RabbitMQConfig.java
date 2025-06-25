@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 
-@Configuration
+@Configuration("currentPercentageServiceRabbitMQConfig")
 public class RabbitMQConfig {
 
     @Bean
