@@ -72,6 +72,13 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>${jackson.version}</version>
         </dependency>
+        <!-->
+         <dependency>
+             <groupId>at.fhtechnikum</groupId>
+             <artifactId>current-percentage-service</artifactId>
+             <version>1.0.0</version>
+         </dependency>
+         <-->
     </dependencies>
 
     <build>

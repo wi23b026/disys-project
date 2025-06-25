@@ -51,10 +51,11 @@
 		<dependency>
 			<groupId>at.fhtechnikum</groupId>
 			<artifactId>current-percentage-service</artifactId>
-			<version>1.0.0</version>
+			<version>0.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
+
 
 	<build>
 		<plugins>

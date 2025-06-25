@@ -1,5 +1,6 @@
 package at.fhtechnikum.communityrestapi;
 
+import at.fhtechnikum.currentpercentageservice.CurrentPercentageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,10 +19,10 @@ public class EnergyDataController {
     private final CurrentPercentageRepository currentPercentageRepository;
 
     @Autowired
-    public EnergyDataController(EnergyDataRepository energyDataRepository, UsageRepository usageRepository /*, CurrentPercentageRepository currentPercentageRepository*/) {
+    public EnergyDataController(EnergyDataRepository energyDataRepository, UsageRepository usageRepository, CurrentPercentageRepository currentPercentageRepository) {
         this.energyDataRepository = energyDataRepository;
+        this.currentPercentageRepository = currentPercentageRepository;
         this.usageRepository = usageRepository;
-        // this.currentPercentageRepository = currentPercentageRepository;
     }
 
     @GetMapping
