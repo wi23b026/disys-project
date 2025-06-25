@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS echo_message (
+CREATE TABLE IF NOT EXISTS energy_message (
     id BIGSERIAL PRIMARY KEY,
     type VARCHAR(20) NOT NULL,
     association VARCHAR(20) NOT NULL,
