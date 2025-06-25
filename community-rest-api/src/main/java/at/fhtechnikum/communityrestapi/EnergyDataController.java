@@ -1,7 +1,10 @@
 package at.fhtechnikum.communityrestapi;
 
+import at.fhtechnikum.currentpercentageservice.CurrentPercentage;
 import at.fhtechnikum.currentpercentageservice.CurrentPercentageRepository;
+import at.fhtechnikum.echoservice.Usage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -32,16 +35,40 @@ public class EnergyDataController {
     }
 
     @GetMapping("/current")
-    public Optional<EnergyData> getCurrentEnergy() {
+    public ResponseEntity<EnergyData> getCurrentEnergy() {
         LocalDateTime now = LocalDateTime.now().withMinute(0).withSecond(0).withNano(0);
-        Optional<EnergyData> currentData = energyDataRepository.findByDate(now);
 
-        if (currentData.isEmpty()) {
-            throw new RuntimeException("No current data available.");
+        Optional<Usage> usageOptional = usageRepository.findByHour(now);
+        Optional<CurrentPercentage> percentageOptional = currentPercentageRepository.findByHour(now);
+
+        if (usageOptional.isEmpty() || percentageOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
 
-        return currentData;
+        Usage usage = usageOptional.get();
+        CurrentPercentage percentage = percentageOptional.get();
+
+        float communityProduced = (float) usage.getCommunityProduced();
+        float communityUsed = (float) usage.getCommunityUsed();
+
+        float currentCommunityPoolPercentage = 0.0f;
+        if (communityProduced > 0) {
+            currentCommunityPoolPercentage = ((communityProduced - communityUsed) / communityProduced) * 100;
+        }
+
+
+        EnergyData combinedEnergyData = new EnergyData(
+                now,
+                currentCommunityPoolPercentage,
+                (float) percentage.getGridPortion(),
+                (float) usage.getCommunityProduced(),
+                (float) usage.getCommunityUsed(),
+                (float) usage.getGridUsed()
+        );
+
+        return ResponseEntity.ok(combinedEnergyData);
     }
+
 
     @GetMapping("/historical")
     public ArrayList<EnergyData> getHistoricalEnergyData(
