@@ -2,14 +2,15 @@ package at.fhtechnikum.energyproducer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-@SpringBootApplication
 @EnableScheduling
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 public class EnergyProducerApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(EnergyProducerApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(EnergyProducerApplication.class, args);
+    }
 
 }
