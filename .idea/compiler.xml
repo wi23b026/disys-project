@@ -18,6 +18,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="community-gui" options="-parameters" />
       <module name="community-rest-api" options="-parameters" />
       <module name="current-percentage-service" options="-parameters" />
       <module name="echo-msg" options="-parameters" />
