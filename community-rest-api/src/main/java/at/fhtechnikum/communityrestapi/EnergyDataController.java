@@ -66,6 +66,8 @@ public class EnergyDataController {
                 (float) usage.getGridUsed()
         );
 
+        energyDataRepository.save(combinedEnergyData);
+
         return ResponseEntity.ok(combinedEnergyData);
     }
 
