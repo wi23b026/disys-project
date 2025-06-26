@@ -6,7 +6,8 @@
    - Password: disyspw
 4. Go to "Services" on the bottom left
 5. Right-click on "Spring Boot" > "Run"
-6. Enjoy :)
+6. Afterwards open project `community-gui`seperatly and start Java class `GuiApplication`
+8. Enjoy :)
 
 # How to use the application
 - ```Refresh```-button: Returns usage data of current time
