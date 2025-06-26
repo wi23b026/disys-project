@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = "at.fhtechnikum")
 @ComponentScan(basePackages = "at.fhtechnikum")
+@EntityScan(basePackages = "at.fhtechnikum")
 public class CommunityRestApiApplication {
 
     public static void main(String[] args) {
